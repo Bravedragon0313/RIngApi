@@ -1,0 +1,8 @@
+{
+  "platforms": [
+    {
+      "platform": "Ring",
+      "refreshToken": "token generated with ring-auth-cli.  See https://github.com/dgreif/ring/wiki/Refresh-Tokens"
+    }
+  ]
+ }

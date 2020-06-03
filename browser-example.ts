@@ -1,0 +1,66 @@
+import 'dotenv/config'
+import { RingApi } from 'ring-client-api'
+import { promisify } from 'util'
+const fs = require('fs'),
+  path = require('path'),
+  express = require('express')
+
+async function example() {
+  const ringApi = new RingApi({
+      // Replace with your refresh token
+      refreshToken: process.env.RING_REFRESH_TOKEN!,
+      debug: true,
+    }),
+    [camera] = await ringApi.getCameras()
+    console.log("here camera", [camera]);
+  if (!camera) {
+    console.log('No cameras found')
+    return
+  }
+
+  const app = express(),
+    publicOutputDirectory = path.join('public', 'output')
+
+  app.use('/', express.static('public'))
+  app.listen(3000, () => {
+    console.log(
+      'Listening on port 3000.  Go to http://localhost:3000 in your browser'
+    )
+  })
+  if (!(await promisify(fs.exists)(publicOutputDirectory))) {
+    console.log("here file exist");
+    await promisify(fs.mkdir)(publicOutputDirectory)
+  }
+
+  const sipSession = await camera.streamVideo({
+    output: [
+      '-preset',
+      'veryfast',
+      '-g',
+      '25',
+      '-sc_threshold',
+      '0',
+      '-f',
+      'hls',
+      '-hls_time',
+      '2',
+      '-hls_list_size',
+      '6',
+      '-hls_flags',
+      'delete_segments',
+      path.join(publicOutputDirectory, 'stream.m3u8'),
+    ],
+  })
+
+  sipSession.onCallEnded.subscribe(() => {
+    console.log('Call has ended')
+    process.exit()
+  })
+
+  setTimeout(function () {
+    console.log('Stopping call...')
+    sipSession.stop()
+  }, 5 * 60 * 1000) // Stop after 5 minutes.
+}
+
+example()

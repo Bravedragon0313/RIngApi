@@ -1,0 +1,9 @@
+output
+lib
+node_modules
+.idea
+.DS_Store
+.env
+release-*
+json-data
+yarn.lock

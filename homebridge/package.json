@@ -1,0 +1,28 @@
+{
+  "name": "homebridge-ring",
+  "description": "Homebridge plugin for Ring doorbells, cameras, security alarm system and smart lighting",
+  "main": "lib/homebridge/index.js",
+  "keywords": [
+    "homebridge",
+    "homebridge-plugin",
+    "ring",
+    "doorbell",
+    "doorbot",
+    "camera",
+    "alarm",
+    "smart",
+    "light",
+    "beam",
+    "security",
+    "category-security",
+    "category-lighting",
+    "category-video",
+    "category-hubs",
+    "category-outdoor"
+  ],
+  "engines": {
+    "node": ">=8.3.0",
+    "homebridge": ">=0.4.0"
+  },
+  "scripts": {}
+}

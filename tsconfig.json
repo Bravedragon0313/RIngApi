@@ -1,0 +1,24 @@
+{
+  "compilerOptions": {
+    "target":"es2015",
+    "lib": [
+      "es5",
+      "es2015",
+      "es2017",
+      "dom"
+    ],
+    "module": "commonjs",
+    "outDir": "./lib",
+    "esModuleInterop": true,
+    "strict": true,
+    "sourceMap": true,
+    "baseUrl": "./src"
+  },
+  "include": [
+    "src/**/*.ts"
+  ],
+  "exclude": [
+    "public",
+    "node_modules"
+  ]
+}
